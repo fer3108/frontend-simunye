@@ -6,5 +6,5 @@ export interface UserEntity {
   email: string;
   password: string;
   enabled?: boolean;
-  roles: RoleEntity[];
+  userRoles: RoleEntity[];
 }

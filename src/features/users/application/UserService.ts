@@ -17,7 +17,6 @@ export class UserService {
   async obteinProfile() {
     const token = this.tokenStorageRepo.getToken("token");
     if (!token) throw new Error("Token inexistente");
-    console.log("aqui en el servicio");
     return this.userRepo.getProfile(token);
   }
 

@@ -35,7 +35,6 @@ export class UserRepositoryImp implements UserRepository {
         return { status: "fail", message: "No autorizado" };
 
       const { data } = await response.json();
-      console.log(data);
 
       return {
         status: "success",

@@ -1,3 +1,4 @@
+import AdapterInProfile from "../adapters/AdapterInProfile";
 import type { AuthorizationRepository } from "../domain/AuthorizationRepository";
 
 export class AuthorizationServices {
@@ -6,6 +7,12 @@ export class AuthorizationServices {
   public async getProfile() {
     const profile = await this.repoAuthorization.getProfile();
 
-    console.log("desde l servicio", profile);
+    if (!profile) {
+      return null;
+    }
+
+    const newProfile = await AdapterInProfile(profile);
+
+    console.log("desde el servicio ===>", newProfile);
   }
 }
