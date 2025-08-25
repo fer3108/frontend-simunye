@@ -21,6 +21,7 @@ export class UserRepositoryImp implements UserRepository {
   ): Promise<ApiResponseEntity<UserEntity>> {
     try {
       const url = import.meta.env.VITE_API_URL_V1;
+
       const response = await fetch(`${url}auth/profile`, {
         headers: {
           authorization: `Bearer ${token}`,
@@ -34,6 +35,7 @@ export class UserRepositoryImp implements UserRepository {
         return { status: "fail", message: "No autorizado" };
 
       const { data } = await response.json();
+      console.log(data);
 
       return {
         status: "success",

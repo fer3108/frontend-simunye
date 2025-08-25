@@ -5,8 +5,8 @@ import type { PermissionEntity } from "../domain/entities/PermissionEntity";
 import type { EditRoleEntity } from "../domain/entities/EditRoleEntity";
 import type { NewRoleEntity } from "../domain/entities/NewRoleEntity";
 import type { RoleEntity } from "../domain/entities/RoleEntity";
-import type { NewUserEntity } from "../domain/entities/NewUserEntity";
 import type { UserEntity } from "../domain/entities/UserEntity";
+import type { NewUserEntity } from "../domain/entities/NewUserEntity";
 
 export class UserService {
   constructor(

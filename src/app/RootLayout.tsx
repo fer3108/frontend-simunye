@@ -34,6 +34,7 @@ import { UserRepositoryImp } from "@/features/users/insfrastructure/repositories
 import { UserService } from "@/features/users/application/UserService";
 import { TokenStorageRepositoryImp } from "@/features/core/infrastructure/TokenStorageRepositoryImp";
 import { useEffect } from "react";
+import { useProfileStore } from "@/features/core/infrastructure/stores/useProfileStore";
 
 const menuContent = [
   {
@@ -71,7 +72,14 @@ export default function RootLayout() {
       const servicio = new UserService(userRepo, tokenStorageRepo);
 
       const reqProfile = await servicio.obteinProfile();
-      console.log("rootlayout", reqProfile);
+
+      if (reqProfile.data) {
+        /* const saveProfile = useProfileStore((state) => state.setProfile);
+        saveProfile(reqProfile.data); */
+        useProfileStore.getState().setProfile(reqProfile.data);
+      }
+      console.log("===>>", reqProfile);
+
       return reqProfile;
     },
     refetchOnWindowFocus: false,

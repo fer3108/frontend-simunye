@@ -17,7 +17,7 @@ export default function LoginPage() {
   const [alert, setAlert] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   // Obtener la ruta de redirección si existe
   const from = location.state?.from || "/";
 
@@ -35,6 +35,8 @@ export default function LoginPage() {
       const service = new AuthServices(authRepo, tokenStorageRepo);
 
       const result = await service.login(value);
+      console.log("result desde login", result);
+      console.log(from);
 
       if (result.status === "fail") {
         setAlert(result.message);
