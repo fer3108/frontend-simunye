@@ -22,14 +22,14 @@ export class TokenValidator {
 
       // Intentar obtener el perfil del usuario para validar el token
       const response = await this.userRepo.getProfile(token);
-      
+
       // Si la respuesta es exitosa, el token es válido
-      if (response.status === "success") {
+      if (response.success) {
         return true;
       }
-      
+
       // Si hay un error de autorización, el token no es válido
-      if (response.status === "fail" && response.message === "No autorizado") {
+      if (!response.success && response.msg === "No autorizado") {
         this.authService.logout(); // Limpiar el token inválido
         return false;
       }

@@ -26,11 +26,10 @@ export class AuthRespositoryImp implements AuthRepository {
           message: "Usuario y/o Contraseña Incorrectos",
         };
       }
-      console.log(await response.json());
-
+      
       const token = response.headers.get("authorization");
       if (!token) return { status: "fail", message: "token" };
-      console.log(token);
+      
       return { status: "success", message: "Autorizado", data: { token } };
     } catch (error) {
       console.log(error);

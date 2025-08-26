@@ -1,5 +1,6 @@
 export interface ApiResponseEntity<T = void> {
-  status: "success" | "error" | "fail";
-  message: string;
+  success: boolean;
+  msg: string;
   data?: T;
+  error?: object[];
 }

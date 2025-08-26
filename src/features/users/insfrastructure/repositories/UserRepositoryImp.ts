@@ -8,6 +8,7 @@ import adapterRoleDtoToApi from "../adapters/adapterRoleDtoToApi";
 import type { EditRoleEntity } from "../../domain/entities/EditRoleEntity";
 import type { NewRoleEntity } from "../../domain/entities/NewRoleEntity";
 import type { NewUserEntity } from "../../domain/entities/NewUserEntity";
+import AdapterInProfile from "@/features/authorization/adapters/AdapterInProfile";
 
 export class UserRepositoryImp implements UserRepository {
   private readonly baseUrl: string;
@@ -28,22 +29,26 @@ export class UserRepositoryImp implements UserRepository {
         },
       });
 
-      if (!response.ok && response.status !== 401)
-        return { status: "error", message: "Error Inesperado" };
+      if (!response.ok) return await response.json();
 
-      if (!response.ok && response.status === 401)
-        return { status: "fail", message: "No autorizado" };
+      /* if (!response.ok && response.status !== 401)
+        return { success: false, msg: "Error Inesperado" }; */
 
-      const { data } = await response.json();
+      /* if (!response.ok && response.status === 401)
+        return { success: false, msg: "No autorizado" }; */
+
+      /* const { data }= await response.json(); */
+      const responseData = await response.json();
+      const adapaptedData = await AdapterInProfile(responseData.data);
 
       return {
-        status: "success",
-        message: "perfil obtenido",
-        data,
+        success: true,
+        msg: "perfil obtenido",
+        data: adapaptedData,
       };
     } catch (error) {
       console.log(error);
-      return { status: "error", message: "Ocurrio un Error" };
+      return { success: false, msg: "Ocurrio un Error" };
     }
   }
 

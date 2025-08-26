@@ -1,10 +1,12 @@
 import type { RoleEntity } from "./RoleEntity";
 
 export interface UserEntity {
-  id?: string;
+  id: number;
   username: string;
   email: string;
-  password: string;
-  enabled?: boolean;
-  userRoles: RoleEntity[];
+  password?: string;
+  isActive: boolean;
+  /* userRoles: object[]; */
+  roles: string[];
+  permissions: string[];
 }

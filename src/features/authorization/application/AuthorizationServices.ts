@@ -1,18 +1,15 @@
-import AdapterInProfile from "../adapters/AdapterInProfile";
 import type { AuthorizationRepository } from "../domain/AuthorizationRepository";
 
 export class AuthorizationServices {
   constructor(private repoAuthorization: AuthorizationRepository) {}
 
-  public async getProfile() {
-    const profile = await this.repoAuthorization.getProfile();
+  public async hasPermission(permission: string) {
+    const profile = await this.repoAuthorization.getProfileFromStore();
 
     if (!profile) {
-      return null;
+      return false;
     }
 
-    const newProfile = await AdapterInProfile(profile);
-
-    console.log("desde el servicio ===>", newProfile);
+    return profile.permissions.includes(permission);
   }
 }

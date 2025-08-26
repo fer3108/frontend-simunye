@@ -3,7 +3,7 @@ import type { AuthorizationRepository } from "../domain/AuthorizationRepository"
 import { useProfileStore } from "@/features/core/infrastructure/stores/useProfileStore";
 
 export class AuthorizationRepositoryImp implements AuthorizationRepository {
-  public async getProfile(): Promise<UserEntity | null> {
+  public async getProfileFromStore(): Promise<UserEntity | null> {
     return useProfileStore.getState().profile;
   }
 }

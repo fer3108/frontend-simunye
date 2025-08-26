@@ -78,7 +78,6 @@ export default function RootLayout() {
         saveProfile(reqProfile.data); */
         useProfileStore.getState().setProfile(reqProfile.data);
       }
-      console.log("===>>", reqProfile);
 
       return reqProfile;
     },
@@ -86,7 +85,7 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
-    if (!isPending && (error || data.status !== "success")) {
+    if (!isPending && (error || !data.success)) {
       navigate("/login");
     }
   }, [error, data, isPending]);
