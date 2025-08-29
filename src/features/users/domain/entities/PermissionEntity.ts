@@ -1,6 +1,6 @@
 export interface PermissionEntity {
   id?: string;
   name: string;
-  description: string;
-  enabled?: boolean;
+  action: string;
+  resource: boolean;
 }

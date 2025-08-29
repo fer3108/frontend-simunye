@@ -10,8 +10,12 @@ import { LockIcon, ShieldIcon, User2, UserCog2Icon } from "lucide-react";
 import { usePermissionsStore } from "@/features/core/infrastructure/stores/usePersmissionsStore";
 import { useRolesStore } from "@/features/core/infrastructure/stores/useRolesStore";
 import TabUsers from "../components/TabUsers/TabUsers";
+import usePermission from "@/features/core/infrastructure/hooks/usePermission";
+import Permissions from "@/config/permissionsConfig";
 
 export default function UserPage() {
+  const can = usePermission();
+
   const { data, isPending } = useQuery({
     refetchOnWindowFocus: false,
     queryKey: ["obtainUsers"],
@@ -94,13 +98,15 @@ export default function UserPage() {
             <ShieldIcon className="h-4 w-4" />
             Roles
           </TabsTrigger>
-          <TabsTrigger
-            value="permissions"
-            className="flex items-center gap-2 px-6 py-3 text-sm font-medium transition-all max-w-fit rounded-none data-[state=inactive]:border-none hover:bg-zinc-100 hover:rounded-t-sm cursor-pointer data-[state=active]:bg-white data-[state=active]:border-b-4 data-[state=active]:border-b-blue-500 data-[state=active]:text-blue-600 data-[state=active]:shadow-none dark:data-[state=active]:bg-blue-900 dark:data-[state=active]:text-white"
-          >
-            <LockIcon className="h-4 w-4" />
-            Permisos
-          </TabsTrigger>
+          {can(Permissions.PERMISSION.READ) && (
+            <TabsTrigger
+              value="permissions"
+              className="flex items-center gap-2 px-6 py-3 text-sm font-medium transition-all max-w-fit rounded-none data-[state=inactive]:border-none hover:bg-zinc-100 hover:rounded-t-sm cursor-pointer data-[state=active]:bg-white data-[state=active]:border-b-4 data-[state=active]:border-b-blue-500 data-[state=active]:text-blue-600 data-[state=active]:shadow-none dark:data-[state=active]:bg-blue-900 dark:data-[state=active]:text-white"
+            >
+              <LockIcon className="h-4 w-4" />
+              Permisos
+            </TabsTrigger>
+          )}
         </TabsList>
         <TabsContent
           value="users"

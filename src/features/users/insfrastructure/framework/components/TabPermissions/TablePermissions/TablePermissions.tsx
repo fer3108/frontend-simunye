@@ -18,12 +18,12 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-export function TablePermissions<TData, TValue>({
-  columns,
-  data,
-}: DataTableProps<TData, TValue>) {
+export function TablePermissions<
+  TData extends { resource: string; name: string; action: string },
+  TValue
+>({ columns, data }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
-    data,
+    data: data,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });

@@ -6,6 +6,8 @@ import type { PermissionEntity } from "@/features/users/domain/entities/Permissi
 import { useState } from "react";
 import ModalEditPermission from "./ModalEditPermission";
 import ModalDeletePermission from "./ModalDeletePermission";
+import usePermission from "@/features/core/infrastructure/hooks/usePermission";
+import Permissions from "@/config/permissionsConfig";
 
 export default function TabPermissions() {
   const permissionsStore = usePermissionsStore((state) => state.permissions);
@@ -29,9 +31,10 @@ export default function TabPermissions() {
   return (
     <div className="w-full p-2 flex flex-col gap-4">
       <h2 className="text-2xl font-bold">Permisos</h2>
-      <div className="flex justify-end mb-4">
+      {/* <div className="flex justify-end mb-4">
         <ModalNewPermission />
-      </div>
+      </div> */}
+
       <TablePermissions
         data={permissionsStore}
         columns={columnsPermissions(
@@ -39,6 +42,7 @@ export default function TabPermissions() {
           handleDeletePermission
         )}
       />
+
       <ModalEditPermission
         open={editModalOpen}
         onOpenChange={setEditModalOpen}

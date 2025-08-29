@@ -5,6 +5,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import type { ApiRoleEntity } from "@/features/core/infrastructure/apiInterfaces/ApiRoleEntity";
 import type { RoleEntity } from "@/features/users/domain/entities/RoleEntity";
 
 import type { ColumnDef } from "@tanstack/react-table";
@@ -13,7 +14,7 @@ import { PencilIcon, Trash2Icon } from "lucide-react";
 export const columnsRoles = (
   onEdit?: (role: RoleEntity) => void,
   onDelete?: (role: RoleEntity) => void
-): ColumnDef<RoleEntity>[] => [
+): ColumnDef<ApiRoleEntity>[] => [
   {
     header: "N°",
     cell: ({ row }: { row: { index: number } }) => {
@@ -25,14 +26,15 @@ export const columnsRoles = (
   {
     header: "Permisos Asignados",
     accessorKey: "permissionList",
-    cell: ({ getValue }) => {
-      const permissions = getValue() as { id: string | number; name: string }[];
+    cell: ({ row }) => {
+      console.log(row.original.rolePermissions);
+      const permissions = row.original.rolePermissions;
       const maxToShow = 1;
       return (
         <div className="flex flex-wrap gap-1 items-center">
           {permissions.slice(0, maxToShow).map((permission) => (
             <Badge key={permission.id} variant="secondary">
-              {permission.name}
+              {permission.permission.name}
             </Badge>
           ))}
           {permissions.length > maxToShow && (
@@ -46,7 +48,7 @@ export const columnsRoles = (
                 <div className="flex flex-wrap gap-1">
                   {permissions.map((permission) => (
                     <Badge key={permission.id} variant="outline">
-                      {permission.name}
+                      {permission.permission.name}
                     </Badge>
                   ))}
                 </div>
@@ -62,7 +64,7 @@ export const columnsRoles = (
   },
   {
     header: "Estado",
-    accessorKey: "enabled",
+    accessorKey: "isActive",
     cell: ({ getValue }) => {
       const isActive = getValue();
       return isActive ? (
@@ -83,7 +85,7 @@ export const columnsRoles = (
             variant="outline"
             size="icon"
             className="shadow-sm cursor-pointer"
-            onClick={() => onEdit && onEdit(row.original)}
+            /* onClick={() => onEdit && onEdit(row.original)} */
           >
             <PencilIcon className="text-green-700" />
           </Button>
@@ -92,7 +94,7 @@ export const columnsRoles = (
             size="icon"
             className="shadow-sm cursor-pointer"
             onClick={() => {
-              onDelete && onDelete(row.original);
+              /* onDelete && onDelete(row.original); */
               console.log("Deleting permission:", row.original);
             }}
           >

@@ -6,4 +6,11 @@ export class AuthorizationRepositoryImp implements AuthorizationRepository {
   public async getProfileFromStore(): Promise<UserEntity | null> {
     return useProfileStore.getState().profile;
   }
+
+  public async hasPermission(
+    permission: string,
+    userPermissions: string[]
+  ): Promise<boolean> {
+    return userPermissions.includes(permission);
+  }
 }

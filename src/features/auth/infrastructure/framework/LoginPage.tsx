@@ -7,7 +7,7 @@ import { loginSchema } from "../loginSchema";
 import { useState } from "react";
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import { AlertCircleIcon } from "lucide-react";
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 import { AuthServices } from "../../application/AuthServices";
 import { TokenStorageRepositoryImp } from "@/features/core/infrastructure/TokenStorageRepositoryImp";
@@ -16,10 +16,6 @@ import { AuthRespositoryImp } from "../AuthRepositoryImp";
 export default function LoginPage() {
   const [alert, setAlert] = useState("");
   const navigate = useNavigate();
-  const location = useLocation();
-
-  // Obtener la ruta de redirección si existe
-  const from = location.state?.from || "/";
 
   const form = useForm({
     defaultValues: {
@@ -35,15 +31,12 @@ export default function LoginPage() {
       const service = new AuthServices(authRepo, tokenStorageRepo);
 
       const result = await service.login(value);
-      console.log("result desde login", result);
-      console.log(from);
 
       if (result.status === "fail") {
         setAlert(result.message);
         return;
       }
-      // Redirigir al usuario a la página que intentaba acceder o al inicio
-      navigate(from);
+      navigate("/");
     },
   });
 

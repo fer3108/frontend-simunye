@@ -1,5 +1,3 @@
-import type { RoleEntity } from "./RoleEntity";
-
 export interface UserEntity {
   id: number;
   username: string;
